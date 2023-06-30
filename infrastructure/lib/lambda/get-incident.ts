@@ -1,85 +1,49 @@
 import { APIGatewayProxyHandler } from "aws-lambda";
-import { StepFunctions } from "aws-sdk";
 import { z } from "zod";
 import { RunTimeEnvVariable, getEnvVariable } from "../config";
-import { ProjectStatus } from "../model";
-import { ProjectService } from "../service/project";
+import { IncidentService } from "../service/incident";
 import { DEFAULT_JSON_HTTP_HEADERS, DEFAULT_TEXT_HTTP_HEADERS } from "../utils";
-import { getAuthFromEvent } from "../service/auth";
 
-const stepFunctions = new StepFunctions();
-
-const IncomingEvent = z.object({
-  title: z.string().nonempty(),
-  topic: z.string().nonempty(),
+const ExpectRequestPathParameters = z.object({
+  incidentId: z.string().nonempty(),
 });
 
 export const handler: APIGatewayProxyHandler = async (proxyEvent) => {
-  const { userId } = getAuthFromEvent(proxyEvent);
-
-  const eventResult = IncomingEvent.safeParse(
-    JSON.parse(proxyEvent.body ?? "")
+  const pathParametersResult = ExpectRequestPathParameters.safeParse(
+    proxyEvent.pathParameters
   );
 
-  if (!eventResult.success) {
+  if (!pathParametersResult.success) {
     return {
       statusCode: 400,
       headers: DEFAULT_TEXT_HTTP_HEADERS,
-      body: "Invalid request body",
+      body: "Invalid request",
     };
   }
 
-  const projectService = new ProjectService(
-    getEnvVariable(RunTimeEnvVariable.PROJECT_TABLE_NAME)
+  const { incidentId } = pathParametersResult.data;
+
+  const incidentService = new IncidentService(
+    getEnvVariable(RunTimeEnvVariable.INCIDENT_TABLE_NAME)
   );
 
   try {
-    const projectsForUser = (
-      await projectService.getProjectsForUser({
-        userId,
-      })
-    )
-      .mapErr(() => "failed to get projects for user")
-      .unwrap();
+    const incidentResult = await incidentService.getIncident({
+      id: incidentId,
+    });
 
-    const hasActiveProjects = projectsForUser.some(
-      (project) =>
-        ![ProjectStatus.Completed, ProjectStatus.Failed].includes(
-          project.status
-        )
-    );
-
-    if (hasActiveProjects) {
+    if (incidentResult.isErr()) {
       return {
-        statusCode: 409,
+        statusCode: 404,
         headers: DEFAULT_TEXT_HTTP_HEADERS,
-        body: "User has project already active",
+        body: "Could not find incident",
       };
     }
 
-    const project = (
-      await projectService.createProject({
-        topic: eventResult.data.topic,
-        title: eventResult.data.title,
-        userId,
-      })
-    )
-      .mapErr(() => "failed to create project")
-      .unwrap();
-
-    await stepFunctions
-      .startExecution({
-        input: JSON.stringify(project),
-        stateMachineArn: getEnvVariable(
-          RunTimeEnvVariable.START_PROJECT_STATE_MACHINE_ARN
-        ),
-      })
-      .promise();
-
     return {
-      statusCode: 201,
+      statusCode: 200,
       headers: DEFAULT_JSON_HTTP_HEADERS,
-      body: JSON.stringify(project),
+      body: JSON.stringify(incidentResult.unwrap()),
     };
   } catch (err) {
     return {
