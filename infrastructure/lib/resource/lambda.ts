@@ -7,86 +7,47 @@ import {
   RunTimeEnvVariable,
   getEnvVariable,
 } from "../config";
-import { SecretName, fetchSecret } from "../service/secret";
 
-async function getLambdaEnvs({
-  projectConfig,
-  secrets,
-}: {
-  projectConfig: ProjectConfig;
-  secrets?: SecretName[];
-}): Promise<Record<string, string>> {
-  const lambdaEnvVars: Record<string, string> = Object.values(
-    BuildTimeEnvVariable
-  ).reduce(
+function getLambdaEnvs(): Record<string, string> {
+  return Object.values(BuildTimeEnvVariable).reduce(
     (acc, curr) => ({
       ...acc,
       [curr]: getEnvVariable(curr),
     }),
     {}
   );
-
-  if (secrets) {
-    const secretResults = await Promise.all(
-      secrets.map((secretName) =>
-        fetchSecret({
-          secretName,
-          projectConfig,
-        })
-      )
-    );
-
-    // update the envs with the secret
-    for (const [secretName, secretValue] of secretResults) {
-      lambdaEnvVars[secretName] = secretValue;
-    }
-  }
-
-  return lambdaEnvVars;
 }
 
-async function buildNodeJsLambda(
+function buildNodeJsLambda(
   scope: Construct,
   {
-    projectConfig,
     functionName,
-    secrets,
     overrideProps,
   }: {
-    projectConfig: ProjectConfig;
     functionName: string;
-    secrets?: SecretName[];
     overrideProps?: Partial<aws_lambda_nodejs.NodejsFunctionProps>;
   }
 ) {
-  const lambdaEnvVars = await getLambdaEnvs({
-    projectConfig,
-    secrets,
-  });
-
   return new aws_lambda_nodejs.NodejsFunction(scope, functionName, {
     memorySize: 1024,
     entry: join(__dirname, "../", "lambda", `${functionName}.ts`),
     ...overrideProps,
     environment: {
       ...overrideProps?.environment,
-      ...lambdaEnvVars,
+      ...getLambdaEnvs(),
     },
   });
 }
 
-export async function buildGetIncidentLambda(
+export function buildGetIncidentLambda(
   scope: Construct,
   {
-    projectConfig,
     incidentTable,
   }: {
-    projectConfig: ProjectConfig;
     incidentTable: dynamo.ITable;
   }
 ) {
-  const lambda = await buildNodeJsLambda(scope, {
-    projectConfig,
+  const lambda = buildNodeJsLambda(scope, {
     functionName: "get-incident",
     overrideProps: {
       environment: {

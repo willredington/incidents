@@ -12,16 +12,13 @@ type IncidentCdkStackProps = cdk.StackProps & {
 export class IncidentCdkStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: IncidentCdkStackProps) {
     super(scope, id, props);
-    this.initializeAsync(props.projectConfig).then(() => {
-      console.log("Stack initialization complete");
-    });
+    this.initializeSync(props.projectConfig);
   }
 
-  private async initializeAsync(projectConfig: ProjectConfig) {
+  private initializeSync(projectConfig: ProjectConfig) {
     const tables = new TableConstruct(this, "TableConstruct");
 
-    const getIncidentLambda = await lambdas.buildGetIncidentLambda(this, {
-      projectConfig,
+    const getIncidentLambda = lambdas.buildGetIncidentLambda(this, {
       incidentTable: tables.incidentTable,
     });
 
