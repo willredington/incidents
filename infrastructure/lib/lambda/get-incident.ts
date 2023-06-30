@@ -32,14 +32,6 @@ export const handler: APIGatewayProxyHandler = async (proxyEvent) => {
       id: incidentId,
     });
 
-    if (incidentResult.isErr()) {
-      return {
-        statusCode: 404,
-        headers: DEFAULT_TEXT_HTTP_HEADERS,
-        body: "Could not find incident",
-      };
-    }
-
     return {
       statusCode: 200,
       headers: DEFAULT_JSON_HTTP_HEADERS,
