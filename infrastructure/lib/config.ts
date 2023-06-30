@@ -15,14 +15,7 @@ export enum BuildTimeEnvVariable {
 }
 
 export enum RunTimeEnvVariable {
-  PROJECT_TABLE_NAME = "PROJECT_TABLE_NAME",
-  SECTION_TABLE_NAME = "SECTION_TABLE_NAME",
-  RESULT_TABLE_NAME = "RESULT_TABLE_NAME",
-  AUDIO_BUCKET_NAME = "AUDIO_BUCKET_NAME",
-  VIDEO_BUCKET_NAME = "VIDEO_BUCKET_NAME",
-  GIF_BUCKET_NAME = "GIF_BUCKET_NAME",
-  START_PROJECT_STATE_MACHINE_ARN = "START_PROJECT_STATE_MACHINE_ARN",
-  FINALIZE_PROJECT_STATE_MACHINE_ARN = "FINALIZE_PROJECT_STATE_MACHINE_ARN",
+  INCIDENT_TABLE_NAME = "INCIDENT_TABLE_NAME",
 }
 
 export function getEnvVariable(
@@ -43,5 +36,3 @@ export function getProjectConfig() {
     projectName: getEnvVariable(BuildTimeEnvVariable.PROJECT_NAME),
   });
 }
-
-export const EVENT_SOURCE = "app.events";

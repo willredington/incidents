@@ -1,3 +1,1 @@
-export * from "./project";
-export * from "./section";
-export * from "./result";
+export * from "./incident";

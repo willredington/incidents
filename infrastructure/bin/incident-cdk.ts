@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 import "source-map-support/register";
 import * as cdk from "aws-cdk-lib";
-import { MovieMakerCdkStack } from "../lib/movie-maker-cdk-stack";
+import { IncidentCdkStack } from "../lib/incident-cdk-stack";
 import { getProjectConfig } from "../lib/config";
 
 const app = new cdk.App();
 
 const { env, branchName, projectName } = getProjectConfig();
 
-new MovieMakerCdkStack(app, `${env}-${projectName}-${branchName}-stack`, {
+new IncidentCdkStack(app, `${env}-${projectName}-${branchName}-stack`, {
   projectConfig: {
     env,
     branchName,

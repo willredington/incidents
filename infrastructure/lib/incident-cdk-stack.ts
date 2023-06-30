@@ -2,18 +2,15 @@ import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 import { ProjectConfig } from "./config";
 import { ApiConstruct } from "./resource/api";
-import { BucketConstruct } from "./resource/bucket";
-import { FargateConstruct } from "./resource/fargate";
 import * as lambdas from "./resource/lambda";
-import { StepFunctionConstruct } from "./resource/step-function";
 import { TableConstruct } from "./resource/table";
 
-type MovieMakerCdkStackProps = cdk.StackProps & {
+type IncidentCdkStackProps = cdk.StackProps & {
   projectConfig: ProjectConfig;
 };
 
-export class MovieMakerCdkStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props: MovieMakerCdkStackProps) {
+export class IncidentCdkStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props: IncidentCdkStackProps) {
     super(scope, id, props);
     this.initializeAsync(props.projectConfig).then(() => {
       console.log("Stack initialization complete");
