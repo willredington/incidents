@@ -19,8 +19,8 @@ export class ApiConstruct extends Construct {
       },
     });
 
-    const incidentResource = this.api.root.addResource("incidentResource");
-    const incidentsResource = this.api.root.addResource("incidentsResource");
+    const incidentResource = this.api.root.addResource("incident");
+    const incidentsResource = this.api.root.addResource("incidents");
 
     incidentsResource.addMethod(
       "GET",

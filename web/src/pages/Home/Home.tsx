@@ -1,11 +1,13 @@
+import { VStack } from "@chakra-ui/react";
 import { Layout } from "../../components/Layout";
+import { Incidents } from "./Incidents";
 
 export function Home() {
   return (
     <Layout>
-      <div>
-        <p>home page</p>
-      </div>
+      <VStack spacing={4}>
+        <Incidents />
+      </VStack>
     </Layout>
   );
 }
