@@ -1,7 +1,5 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import {
-  Button,
   HStack,
   Heading,
   IconButton,
@@ -24,7 +22,6 @@ const NAV_ITEMS: NavItem[] = [
 
 export function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   return (
     <HStack
@@ -38,7 +35,7 @@ export function Navbar() {
     >
       <HStack spacing={"10"}>
         <Heading size={"md"} as={RLink} to={"/"}>
-          Auto Movie Maker
+          Incident Manager
         </Heading>
         <HStack spacing={4}>
           {NAV_ITEMS.map((navItem) => (
@@ -48,19 +45,11 @@ export function Navbar() {
           ))}
         </HStack>
       </HStack>
-      <HStack spacing={4}>
-        <IconButton
-          onClick={toggleColorMode}
-          aria-label="toggle-color-mode-btn"
-          icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-        />
-
-        {isAuthenticated ? (
-          <Button onClick={() => logout()}>Logout</Button>
-        ) : (
-          <Button onClick={() => loginWithRedirect()}>Login</Button>
-        )}
-      </HStack>
+      <IconButton
+        onClick={toggleColorMode}
+        aria-label="toggle-color-mode-btn"
+        icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+      />
     </HStack>
   );
 }

@@ -60,3 +60,25 @@ export function buildGetIncidentLambda(
 
   return lambda;
 }
+
+export function buildGetAllIncidentsLambda(
+  scope: Construct,
+  {
+    incidentTable,
+  }: {
+    incidentTable: dynamo.ITable;
+  }
+) {
+  const lambda = buildNodeJsLambda(scope, {
+    functionName: "get-all-incidents",
+    overrideProps: {
+      environment: {
+        [RunTimeEnvVariable.INCIDENT_TABLE_NAME]: incidentTable.tableName,
+      },
+    },
+  });
+
+  incidentTable.grantReadData(lambda);
+
+  return lambda;
+}

@@ -63,6 +63,30 @@ export class DbClient<T> {
     }
   }
 
+  async scanItems(
+    additionalScanParams?: Partial<DynamoDB.DocumentClient.ScanInput>
+  ): Promise<Result<T[], string>> {
+    const scanParams: DynamoDB.DocumentClient.ScanInput = {
+      TableName: this.tableName,
+      ...additionalScanParams,
+    };
+
+    try {
+      const result = await this.documentClient.scan(scanParams).promise();
+      const itemsResult = z.array(this.schema).safeParse(result.Items ?? []);
+
+      if (!itemsResult.success) {
+        console.log("items", result.Items);
+        return Err("failed to validate list of items");
+      }
+
+      return Ok(itemsResult.data);
+    } catch (error) {
+      console.error("Error retrieving items from DynamoDB:", error);
+      return Err("Error retrieving items from DynamoDB");
+    }
+  }
+
   async putItem(item: T): Promise<Result<T, string>> {
     const params: DynamoDB.DocumentClient.PutItemInput = {
       TableName: this.tableName,

@@ -16,4 +16,8 @@ export class IncidentService {
       id,
     });
   }
+
+  getAllIncidents() {
+    return this.client.scanItems();
+  }
 }

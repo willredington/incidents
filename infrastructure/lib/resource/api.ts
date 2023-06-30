@@ -3,6 +3,7 @@ import { Construct } from "constructs";
 
 type ApiConstructProps = {
   getIncidentLambda: aws_lambda.IFunction;
+  getAllIncidentsLambda: aws_lambda.IFunction;
 };
 
 export class ApiConstruct extends Construct {
@@ -19,6 +20,12 @@ export class ApiConstruct extends Construct {
     });
 
     const incidentResource = this.api.root.addResource("incidentResource");
+    const incidentsResource = this.api.root.addResource("incidentsResource");
+
+    incidentsResource.addMethod(
+      "GET",
+      new apig.LambdaIntegration(props.getAllIncidentsLambda)
+    );
 
     incidentResource
       .addResource("{incidentId}")

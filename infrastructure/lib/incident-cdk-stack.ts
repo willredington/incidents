@@ -22,8 +22,13 @@ export class IncidentCdkStack extends cdk.Stack {
       incidentTable: tables.incidentTable,
     });
 
+    const getAllIncidentsLambda = lambdas.buildGetAllIncidentsLambda(this, {
+      incidentTable: tables.incidentTable,
+    });
+
     new ApiConstruct(this, "ApiConstruct", {
       getIncidentLambda,
+      getAllIncidentsLambda,
     });
   }
 }
