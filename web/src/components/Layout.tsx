@@ -7,7 +7,7 @@ export function Layout({ children }: PropsWithChildren) {
     <Box h="full" bg={useColorModeValue("gray.50", "gray.800")}>
       <Navbar />
       <Container mt={12} maxW={"container.lg"}>
-        <VStack h="full" alignItems={"center"} w="full">
+        <VStack h="full" w="full">
           {children}
         </VStack>
       </Container>

@@ -5,9 +5,7 @@ import { Incidents } from "./Incidents";
 export function Home() {
   return (
     <Layout>
-      <VStack spacing={4}>
-        <Incidents />
-      </VStack>
+      <Incidents />
     </Layout>
   );
 }

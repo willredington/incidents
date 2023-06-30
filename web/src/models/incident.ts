@@ -77,6 +77,7 @@ type FireDepartment = {
 };
 
 export type IncidentData = {
+  id: string;
   address: Address;
   apparatus: Apparatus[];
   description: Description;

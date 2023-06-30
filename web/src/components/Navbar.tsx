@@ -37,13 +37,6 @@ export function Navbar() {
         <Heading size={"md"} as={RLink} to={"/"}>
           Incident Manager
         </Heading>
-        <HStack spacing={4}>
-          {NAV_ITEMS.map((navItem) => (
-            <Link key={navItem.label} as={RLink} to={navItem.link}>
-              {navItem.label}
-            </Link>
-          ))}
-        </HStack>
       </HStack>
       <IconButton
         onClick={toggleColorMode}
