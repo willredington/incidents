@@ -9,6 +9,11 @@ import {
   Text,
   Heading,
   IconButton,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
 } from "@chakra-ui/react";
 import { useCallback } from "react";
 import { useQuery } from "react-query";
@@ -19,6 +24,7 @@ import { formatDateTime } from "../../utils/date";
 import { IncidentHeader } from "../../components/IncidentHeader";
 import { ViewIcon } from "@chakra-ui/icons";
 import { ExpandableText } from "../../components/ExpandText";
+import { GeneralInfo } from "./GeneralInfo";
 
 type PageParams = {
   incidentId: string;
@@ -57,27 +63,12 @@ export function Incident() {
   if (incident) {
     return (
       <Layout>
-        <Card>
+        <Card w={"full"}>
           <CardHeader>
             <IncidentHeader incident={incident} />
           </CardHeader>
           <CardBody>
-            <VStack alignItems={"flex-start"}>
-              <VStack alignItems={"flex-start"}>
-                <Text fontSize={"lg"} fontWeight={"semibold"}>
-                  Fire Department
-                </Text>
-                <Text>{incident.fire_department.name}</Text>
-              </VStack>
-              <VStack alignItems={"flex-start"}>
-                <Text fontSize={"lg"} fontWeight={"semibold"}>
-                  Comments
-                </Text>
-                <ExpandableText fontSize={"sm"} noOfLines={4}>
-                  {incident.description.comments}
-                </ExpandableText>
-              </VStack>
-            </VStack>
+            <GeneralInfo incident={incident} />
           </CardBody>
         </Card>
       </Layout>
