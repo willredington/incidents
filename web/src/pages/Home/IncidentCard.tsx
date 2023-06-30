@@ -1,7 +1,9 @@
 import {
   Box,
+  Button,
   Card,
   CardBody,
+  CardFooter,
   CardHeader,
   HStack,
   Heading,
@@ -11,40 +13,31 @@ import {
 } from "@chakra-ui/react";
 import { IncidentData } from "../../models/incident";
 import { formatDateTime } from "../../utils/date";
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { IncidentHeader } from "../../components/IncidentHeader";
 
 export function IncidentCard({ incident }: { incident: IncidentData }) {
+  const navigate = useNavigate();
+
+  const onViewDetails = useCallback(() => {
+    navigate(`/incident/${incident.id}`);
+  }, [navigate, incident.id]);
+
   return (
-    <Card size={"lg"}>
+    <Card>
       <CardHeader>
-        <VStack spacing={4} alignItems={"stretch"}>
-          <HStack justify={"space-between"} alignItems={"baseline"}>
-            <HStack alignItems={"baseline"}>
-              <Text fontWeight={"semibold"} fontSize={"2xl"}>
-                Incident
-              </Text>
-              <Text>#{incident.description.incident_number}</Text>
-            </HStack>
-            <Tag alignSelf={"flex-start"}>{incident.description.type}</Tag>
-          </HStack>
-          <HStack justify={"space-between"}>
-            <VStack align={"flex-start"}>
-              <Text fontWeight={"semibold"}>Opened</Text>
-              <Text fontSize={"sm"} fontStyle={"italic"}>
-                {formatDateTime(incident.description.event_opened)}
-              </Text>
-            </VStack>
-            <VStack align={"flex-start"}>
-              <Text fontWeight={"semibold"}>Closed</Text>
-              <Text fontSize={"sm"} fontStyle={"italic"}>
-                {formatDateTime(incident.description.event_closed)}
-              </Text>
-            </VStack>
-          </HStack>
-        </VStack>
+        <IncidentHeader incident={incident} />
       </CardHeader>
       <CardBody>
-        <p>incident data goes here</p>
+        <Text>{incident.fire_department.state}</Text>
+        <Text>{incident.fire_department.name}</Text>
       </CardBody>
+      <CardFooter>
+        <Button colorScheme="blue" onClick={onViewDetails}>
+          View Details
+        </Button>
+      </CardFooter>
     </Card>
   );
 }

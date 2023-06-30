@@ -19,16 +19,36 @@ type Address = {
   type: string;
 };
 
-type UnitStatus = {
-  [status: string]: {
+export enum UnitStatusType {
+  Arrived = "arrived",
+  Available = "available",
+  Cleared = "cleared",
+  Dispatched = "dispatched",
+  Enroute = "enroute",
+  Unknown = "~",
+}
+
+// this may seem a bit tautological but it helps us map types to descriptions in case we just want to change the labels
+export const unitStatusTypeMapDesc: Record<UnitStatusType, string> = {
+  [UnitStatusType.Arrived]: "Arrived",
+  [UnitStatusType.Available]: "Available",
+  [UnitStatusType.Cleared]: "Cleared",
+  [UnitStatusType.Dispatched]: "Dispatched",
+  [UnitStatusType.Enroute]: "Enroute",
+  [UnitStatusType.Unknown]: "Unknown",
+};
+
+type UnitStatus = Record<
+  UnitStatusType,
+  {
     geohash: string;
     latitude: number;
     longitude: number;
     timestamp: string;
-  };
-};
+  }
+>;
 
-type Apparatus = {
+export type Apparatus = {
   car_id: string;
   distance?: number;
   extended_data: {
