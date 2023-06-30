@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-// NOTE: 99% of this was chat gpt, I just gave it the JSON
+// NOTE: 99% of this was chat gpt, I just gave it the JSON and an ID field
 const statusInfoSchema = z.object({
   geohash: z.string(),
   latitude: z.number(),
@@ -84,6 +84,7 @@ const fireDepartmentSchema = z.object({
 });
 
 export const IncidentSchema = z.object({
+  id: z.string(),
   address: addressSchema,
   apparatus: z.array(apparatusSchema),
   description: descriptionSchema,
