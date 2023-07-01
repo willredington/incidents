@@ -1,21 +1,15 @@
 import {
-  Box,
   Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
-  HStack,
-  Heading,
-  Tag,
   Text,
-  VStack,
 } from "@chakra-ui/react";
-import { IncidentData } from "../../models/incident";
-import { formatDateTime } from "../../utils/date";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { IncidentHeader } from "../../components/IncidentHeader";
+import { IncidentData } from "../../models/incident";
 
 export function IncidentCard({ incident }: { incident: IncidentData }) {
   const navigate = useNavigate();

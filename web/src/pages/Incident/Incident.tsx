@@ -5,7 +5,6 @@ import {
   CardFooter,
   CardHeader,
   Spinner,
-  VStack,
 } from "@chakra-ui/react";
 import { useCallback } from "react";
 import { useQuery } from "react-query";
@@ -15,7 +14,6 @@ import { Layout } from "../../components/Layout";
 import { getIncident } from "../../services/incident";
 import { EventMapContainer } from "./EventMapContainer";
 import { GeneralInfo } from "./GeneralInfo";
-import { IncidentStats } from "./IncidentStats";
 
 type PageParams = {
   incidentId: string;

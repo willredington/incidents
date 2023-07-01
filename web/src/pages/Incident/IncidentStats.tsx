@@ -1,14 +1,7 @@
-import {
-  HStack,
-  Stat,
-  StatGroup,
-  StatHelpText,
-  StatLabel,
-  StatNumber,
-} from "@chakra-ui/react";
-import { IncidentData } from "../../models/incident";
-import { useMemo } from "react";
+import { HStack, Stat, StatLabel, StatNumber } from "@chakra-ui/react";
 import { DateTime } from "luxon";
+import { useMemo } from "react";
+import { IncidentData } from "../../models/incident";
 import { formatDateTime } from "../../utils/date";
 
 export function IncidentStats({ incident }: { incident: IncidentData }) {

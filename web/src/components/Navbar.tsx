@@ -1,24 +1,6 @@
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import {
-  HStack,
-  Heading,
-  IconButton,
-  Link,
-  useColorMode,
-} from "@chakra-ui/react";
+import { HStack, Heading, IconButton, useColorMode } from "@chakra-ui/react";
 import { Link as RLink } from "react-router-dom";
-
-type NavItem = {
-  label: string;
-  link: string;
-};
-
-const NAV_ITEMS: NavItem[] = [
-  {
-    label: "Projects",
-    link: "/",
-  },
-];
 
 export function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();

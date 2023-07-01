@@ -1,6 +1,5 @@
 import { Text, VStack } from "@chakra-ui/react";
 import { useMemo } from "react";
-import { FaRadiationAlt as RadiationIcon } from "react-icons/fa";
 import { MdEmergency as EmergencyIcon } from "react-icons/md";
 import { getIcon } from "./Icons";
 

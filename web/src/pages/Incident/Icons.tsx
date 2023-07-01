@@ -13,6 +13,7 @@ import {
 import { BsFillQuestionCircleFill as UnknownIcon } from "react-icons/bs";
 import { IconType } from "react-icons";
 
+// eslint-disable-next-line react-refresh/only-export-components
 const UnitTypeIconMap = {
   [UnitType.TRUCK_AERIAL]: FiTruck,
   [UnitType.CHIEF]: FiUserCheck,
