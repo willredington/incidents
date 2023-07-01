@@ -62,6 +62,7 @@ export function EventMap({
     }
   }, [selectedUnit]);
 
+  // in real life, we would want to calculate the zoom based on the proximity of all the pins
   const initialViewState: Partial<ViewState> = useMemo(() => {
     return {
       longitude: incident.address.longitude,

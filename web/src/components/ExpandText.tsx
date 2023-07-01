@@ -1,5 +1,5 @@
 import type { BoxProps } from "@chakra-ui/react";
-import { Box, Button, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, VStack } from "@chakra-ui/react";
 import React, { forwardRef, useState } from "react";
 
 interface Props extends BoxProps {
@@ -13,6 +13,7 @@ export const ExpandableText = forwardRef<HTMLDivElement, Props>(
       noOfLines
     );
     const [isClicked, setIsClicked] = useState(false);
+
     const handleToggle = () => {
       setIsClicked(true);
       setExpandedCount(expandedCount ? undefined : noOfLines);
@@ -20,6 +21,7 @@ export const ExpandableText = forwardRef<HTMLDivElement, Props>(
 
     const inputRef = React.useRef<HTMLInputElement>(null);
 
+    // this is extremely slow to update, not sure why
     const isTextClamped =
       (inputRef.current?.scrollHeight as number) >
         (inputRef.current?.clientHeight as number) || isClicked;

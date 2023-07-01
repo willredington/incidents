@@ -1,23 +1,24 @@
-import { VStack, Text } from "@chakra-ui/react";
-import { ExpandableText } from "../../components/ExpandText";
+import { Text, VStack } from "@chakra-ui/react";
 import { IncidentData } from "../../models/incident";
+import { IncidentStats } from "./IncidentStats";
 
 export function GeneralInfo({ incident }: { incident: IncidentData }) {
   return (
-    <VStack alignItems={"flex-start"}>
+    <VStack alignItems={"stretch"} spacing={6}>
       <VStack alignItems={"flex-start"}>
         <Text fontSize={"lg"} fontWeight={"semibold"}>
           Fire Department
         </Text>
         <Text>{incident.fire_department.name}</Text>
       </VStack>
+      <IncidentStats incident={incident} />
       <VStack alignItems={"flex-start"}>
         <Text fontSize={"lg"} fontWeight={"semibold"}>
           Comments
         </Text>
-        <ExpandableText fontSize={"sm"} noOfLines={4}>
+        <Text fontSize={"sm"} noOfLines={4}>
           {incident.description.comments}
-        </ExpandableText>
+        </Text>
       </VStack>
     </VStack>
   );

@@ -1,4 +1,12 @@
-import { Card, CardBody, CardHeader, Spinner } from "@chakra-ui/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Spinner,
+  VStack,
+} from "@chakra-ui/react";
 import { useCallback } from "react";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
@@ -7,6 +15,7 @@ import { Layout } from "../../components/Layout";
 import { getIncident } from "../../services/incident";
 import { EventMapContainer } from "./EventMapContainer";
 import { GeneralInfo } from "./GeneralInfo";
+import { IncidentStats } from "./IncidentStats";
 
 type PageParams = {
   incidentId: string;
@@ -53,6 +62,9 @@ export function Incident() {
             <EventMapContainer incident={incident} />
             <GeneralInfo incident={incident} />
           </CardBody>
+          <CardFooter>
+            <Button onClick={goBack}>Go Back</Button>
+          </CardFooter>
         </Card>
       </Layout>
     );
