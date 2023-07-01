@@ -19,6 +19,30 @@ type Address = {
   type: string;
 };
 
+export enum UnitType {
+  TRUCK_AERIAL = "Truck/Aerial",
+  CHIEF = "Chief",
+  ENGINE = "Engine",
+  SQUAD = "Squad",
+  MEDICAL = "Medical",
+  HAZMAT = "Hazmat Unit",
+  ALS_BLS = "ALS/BLS",
+  UTILITY = "Utility",
+  CRISIS_RESPONSE = "Crisis Response",
+}
+
+export const UnitTypeDescriptions: { [key in UnitType]: string } = {
+  [UnitType.TRUCK_AERIAL]: "Ladder or Truck",
+  [UnitType.CHIEF]: "Fire Chief or Officer",
+  [UnitType.ENGINE]: "Engine",
+  [UnitType.SQUAD]: "Squad",
+  [UnitType.MEDICAL]: "Ambulance",
+  [UnitType.HAZMAT]: "Hazardous Materials Unit",
+  [UnitType.ALS_BLS]: "Advanced Life Support/Basic Life Support",
+  [UnitType.UTILITY]: "Utility Vehicle",
+  [UnitType.CRISIS_RESPONSE]: "Crisis Response Unit",
+};
+
 export enum UnitStatusType {
   Arrived = "arrived",
   Available = "available",
@@ -28,7 +52,7 @@ export enum UnitStatusType {
   Unknown = "~",
 }
 
-export const unitStatusTypeOrder = [
+export const UnitStatusTypeOrder = [
   UnitStatusType.Available,
   UnitStatusType.Dispatched,
   UnitStatusType.Enroute,
@@ -37,7 +61,7 @@ export const unitStatusTypeOrder = [
 ];
 
 // this may seem a bit tautological but it helps us map types to descriptions in case we just want to change the labels
-export const unitStatusTypeMapDesc: Record<UnitStatusType, string> = {
+export const UnitStatusTypeMapDesc: Record<UnitStatusType, string> = {
   [UnitStatusType.Arrived]: "Arrived",
   [UnitStatusType.Available]: "Available",
   [UnitStatusType.Cleared]: "Cleared",
@@ -71,7 +95,7 @@ export type Apparatus = {
   station: string;
   unit_id: string;
   unit_status: UnitStatus;
-  unit_type: string;
+  unit_type: UnitType;
 };
 
 type Description = {

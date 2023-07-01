@@ -2,8 +2,13 @@ import { Box, useColorMode } from "@chakra-ui/react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useMemo } from "react";
 import Map, { Marker, ViewState } from "react-map-gl";
-import { Apparatus, IncidentData, UnitStatusType } from "../../models/incident";
-import { EmergencyMapPin, HazmatMapPin } from "./MapPin";
+import {
+  Apparatus,
+  IncidentData,
+  UnitStatusType,
+  UnitStatusTypeMapDesc,
+} from "../../models/incident";
+import { EmergencyMapPin, UnitMapPin } from "./MapPin";
 
 const MAP_STYLE = {
   light: "mapbox://styles/mapbox/streets-v9",
@@ -15,10 +20,8 @@ const MAP_HEIGHT = "300px";
 export function EventMap({
   incident,
   selectedUnit,
-  selectedStatus,
 }: {
   incident: IncidentData;
-  selectedStatus: UnitStatusType;
   selectedUnit: Apparatus | null;
 }) {
   const { colorMode } = useColorMode();
@@ -37,23 +40,27 @@ export function EventMap({
     );
   }, [incident.address]);
 
-  const selectedUnitPin = useMemo(() => {
-    const statusDetails = selectedUnit?.unit_status[selectedStatus];
-
-    if (statusDetails) {
-      return (
-        <Marker
-          longitude={statusDetails.longitude}
-          latitude={statusDetails.latitude}
-          anchor="bottom"
-        >
-          <HazmatMapPin
-            name={`${selectedUnit?.unit_type} - ${selectedStatus}`}
-          />
-        </Marker>
+  const unitPins = useMemo(() => {
+    if (selectedUnit) {
+      return Object.entries(selectedUnit.unit_status).map(
+        ([status, details]) => {
+          return (
+            <Marker
+              key={status}
+              latitude={details.latitude}
+              longitude={details.longitude}
+              anchor="bottom"
+            >
+              <UnitMapPin
+                unitType={selectedUnit.unit_type}
+                name={UnitStatusTypeMapDesc[status as UnitStatusType]}
+              />
+            </Marker>
+          );
+        }
       );
     }
-  }, [selectedUnit, selectedStatus]);
+  }, [selectedUnit]);
 
   const initialViewState: Partial<ViewState> = useMemo(() => {
     return {
@@ -73,7 +80,7 @@ export function EventMap({
         mapboxAccessToken={import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}
       >
         {emergencyPin}
-        {selectedUnitPin}
+        {unitPins && unitPins}
       </Map>
     </Box>
   );

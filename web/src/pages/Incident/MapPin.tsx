@@ -1,6 +1,8 @@
 import { Text, VStack } from "@chakra-ui/react";
+import { useMemo } from "react";
 import { FaRadiationAlt as RadiationIcon } from "react-icons/fa";
 import { MdEmergency as EmergencyIcon } from "react-icons/md";
+import { getIcon } from "./Icons";
 
 export function EmergencyMapPin() {
   return (
@@ -10,13 +12,20 @@ export function EmergencyMapPin() {
   );
 }
 
-export function HazmatMapPin({ name }: { name: string }) {
+export function UnitMapPin({
+  name,
+  unitType,
+}: {
+  name: string;
+  unitType: string;
+}) {
+  const Icon = useMemo(() => getIcon(unitType), [unitType]);
   return (
     <VStack align="center" cursor="pointer">
       <Text fontSize="2xl" fontWeight="semibold">
         {name}
       </Text>
-      <RadiationIcon size="3em" />
+      <Icon size="3em" />
     </VStack>
   );
 }

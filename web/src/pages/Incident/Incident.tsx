@@ -6,6 +6,7 @@ import { IncidentHeader } from "../../components/IncidentHeader";
 import { Layout } from "../../components/Layout";
 import { getIncident } from "../../services/incident";
 import { EventMapContainer } from "./EventMapContainer";
+import { GeneralInfo } from "./GeneralInfo";
 
 type PageParams = {
   incidentId: string;
@@ -44,11 +45,12 @@ export function Incident() {
   if (incident) {
     return (
       <Layout>
-        <Card w={"full"}>
+        <Card w={"full"} mb={8}>
           <CardHeader>
             <IncidentHeader incident={incident} />
           </CardHeader>
           <CardBody>
+            {/* <GeneralInfo incident={incident} /> */}
             <EventMapContainer incident={incident} />
           </CardBody>
         </Card>
