@@ -18,3 +18,16 @@ export function getIncidents() {
     },
   });
 }
+
+export function uploadIncidentFile(formData: FormData) {
+  return fetcher({
+    path: "incidents",
+    requestConfig: {
+      method: "POST",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      data: formData,
+    },
+  });
+}

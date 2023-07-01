@@ -82,3 +82,25 @@ export function buildGetAllIncidentsLambda(
 
   return lambda;
 }
+
+export function buildCreateIncidentLambda(
+  scope: Construct,
+  {
+    incidentTable,
+  }: {
+    incidentTable: dynamo.ITable;
+  }
+) {
+  const lambda = buildNodeJsLambda(scope, {
+    functionName: "create-incident",
+    overrideProps: {
+      environment: {
+        [RunTimeEnvVariable.INCIDENT_TABLE_NAME]: incidentTable.tableName,
+      },
+    },
+  });
+
+  incidentTable.grantReadWriteData(lambda);
+
+  return lambda;
+}

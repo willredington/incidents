@@ -2,7 +2,7 @@ import axios, { type AxiosRequestConfig } from "axios";
 
 export type FetcherProps = {
   path: string;
-  requestConfig: Pick<AxiosRequestConfig, "method" | "data" | "params">;
+  requestConfig: Partial<AxiosRequestConfig>;
 };
 
 export async function fetcher<T>({ path, requestConfig }: FetcherProps) {

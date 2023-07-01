@@ -1,3 +1,4 @@
+import { v4 as uuid } from "uuid";
 import { IncidentSchema } from "../model";
 import { DbClient } from "./db";
 
@@ -9,6 +10,13 @@ export class IncidentService {
       IncidentSchema,
       incidentTableName
     );
+  }
+
+  createIncident({ incident }: { incident: Omit<IncidentSchema, "id"> }) {
+    return this.client.putItem({
+      id: uuid(),
+      ...incident,
+    });
   }
 
   getIncident({ id }: { id: string }) {
