@@ -4,7 +4,7 @@ import { formatDateTime } from "../utils/date";
 
 export function IncidentHeader({ incident }: { incident: IncidentData }) {
   return (
-    <VStack spacing={4} alignItems={"stretch"}>
+    <VStack alignItems={"stretch"}>
       <HStack justify={"space-between"} alignItems={"baseline"}>
         <HStack alignItems={"baseline"}>
           <Text fontWeight={"semibold"} fontSize={"2xl"}>
@@ -21,7 +21,7 @@ export function IncidentHeader({ incident }: { incident: IncidentData }) {
             {formatDateTime(incident.description.event_opened)}
           </Text>
         </VStack>
-        <VStack align={"flex-start"}>
+        <VStack align={"flex-end"}>
           <Text fontWeight={"semibold"}>Closed</Text>
           <Text fontSize={"sm"} fontStyle={"italic"}>
             {formatDateTime(incident.description.event_closed)}

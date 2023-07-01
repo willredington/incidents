@@ -28,6 +28,14 @@ export enum UnitStatusType {
   Unknown = "~",
 }
 
+export const unitStatusTypeOrder = [
+  UnitStatusType.Available,
+  UnitStatusType.Dispatched,
+  UnitStatusType.Enroute,
+  UnitStatusType.Arrived,
+  UnitStatusType.Cleared,
+];
+
 // this may seem a bit tautological but it helps us map types to descriptions in case we just want to change the labels
 export const unitStatusTypeMapDesc: Record<UnitStatusType, string> = {
   [UnitStatusType.Arrived]: "Arrived",

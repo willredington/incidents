@@ -1,30 +1,11 @@
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  HStack,
-  Spinner,
-  Tag,
-  VStack,
-  Text,
-  Heading,
-  IconButton,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-} from "@chakra-ui/react";
+import { Card, CardBody, CardHeader, Spinner } from "@chakra-ui/react";
 import { useCallback } from "react";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
+import { IncidentHeader } from "../../components/IncidentHeader";
 import { Layout } from "../../components/Layout";
 import { getIncident } from "../../services/incident";
-import { formatDateTime } from "../../utils/date";
-import { IncidentHeader } from "../../components/IncidentHeader";
-import { ViewIcon } from "@chakra-ui/icons";
-import { ExpandableText } from "../../components/ExpandText";
-import { GeneralInfo } from "./GeneralInfo";
+import { EventMapContainer } from "./EventMapContainer";
 
 type PageParams = {
   incidentId: string;
@@ -68,7 +49,7 @@ export function Incident() {
             <IncidentHeader incident={incident} />
           </CardHeader>
           <CardBody>
-            <GeneralInfo incident={incident} />
+            <EventMapContainer incident={incident} />
           </CardBody>
         </Card>
       </Layout>
