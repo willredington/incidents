@@ -6,8 +6,6 @@ import { IncidentCard } from "./IncidentCard";
 export function Incidents() {
   const { isLoading, data: incidents } = useQuery("getIncidents", getIncidents);
 
-  console.log(incidents);
-
   if (isLoading) {
     return <Spinner size={"xl"} />;
   }

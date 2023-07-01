@@ -73,7 +73,7 @@ export function EventMap({
   }, [incident.address]);
 
   return (
-    <Box h={MAP_HEIGHT} mt={2}>
+    <Box h={MAP_HEIGHT} mt={2} mb={4}>
       <Map
         mapStyle={mapStyle}
         initialViewState={initialViewState}

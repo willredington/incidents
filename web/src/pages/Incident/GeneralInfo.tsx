@@ -15,7 +15,7 @@ export function GeneralInfo({ incident }: { incident: IncidentData }) {
         <Text fontSize={"lg"} fontWeight={"semibold"}>
           Comments
         </Text>
-        <ExpandableText fontSize={"sm"} noOfLines={2}>
+        <ExpandableText fontSize={"sm"} noOfLines={4}>
           {incident.description.comments}
         </ExpandableText>
       </VStack>

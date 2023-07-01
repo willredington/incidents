@@ -50,8 +50,8 @@ export function Incident() {
             <IncidentHeader incident={incident} />
           </CardHeader>
           <CardBody>
-            {/* <GeneralInfo incident={incident} /> */}
             <EventMapContainer incident={incident} />
+            <GeneralInfo incident={incident} />
           </CardBody>
         </Card>
       </Layout>
