@@ -1,25 +1,17 @@
+import { AddIcon } from "@chakra-ui/icons";
 import {
-  Button,
   HStack,
   Heading,
   IconButton,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   SimpleGrid,
   Spinner,
   VStack,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useQuery } from "react-query";
+import { FileUploadModal } from "../../components/FileUploadModal";
 import { getIncidents } from "../../services/incident";
 import { IncidentCard } from "./IncidentCard";
-import { AddIcon } from "@chakra-ui/icons";
-import { FileUploadModal } from "../../components/FileUploadModal";
 
 export function Incidents() {
   const { isOpen, onOpen, onClose } = useDisclosure();
