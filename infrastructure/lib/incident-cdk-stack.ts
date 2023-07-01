@@ -16,6 +16,7 @@ export class IncidentCdkStack extends cdk.Stack {
   }
 
   private initializeSync(projectConfig: ProjectConfig) {
+    console.log(projectConfig);
     const tables = new TableConstruct(this, "TableConstruct");
 
     const getIncidentLambda = lambdas.buildGetIncidentLambda(this, {
