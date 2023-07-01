@@ -12,7 +12,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { uploadIncidentFile } from "../services/incident";
 
 export const FileUploadModal = ({
@@ -23,6 +23,8 @@ export const FileUploadModal = ({
   onClose: () => void;
 }) => {
   const toast = useToast();
+
+  const queryClient = useQueryClient();
 
   const [file, setFile] = useState<File | null>(null);
 
@@ -39,7 +41,10 @@ export const FileUploadModal = ({
         status: "error",
       });
     },
-    onSuccess: onClose,
+    onSuccess: () => {
+      queryClient.invalidateQueries("getIncidents");
+      onClose();
+    },
   });
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
