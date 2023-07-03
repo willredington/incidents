@@ -13,4 +13,4 @@ Time spent: 4.5 hours
 Note: readme was updated after submission
 
 ![dashboard](doc/dashboard.png)
-![incident detail](docs/incident.png)
+![incident](doc/incident.png)
